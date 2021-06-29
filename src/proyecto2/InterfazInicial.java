@@ -88,6 +88,11 @@ public class InterfazInicial extends javax.swing.JFrame {
         });
 
         editImpresion.setText("Editar Cola de Impresion");
+        editImpresion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editImpresionMouseClicked(evt);
+            }
+        });
 
         save.setText("Guardar Cambios");
         save.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,6 +193,12 @@ public class InterfazInicial extends javax.swing.JFrame {
         text = impresionList.inOrderPrint(impresionList.getRoot(), text);
         JOptionPane.showMessageDialog(null, text);
     }//GEN-LAST:event_showImpressionMouseClicked
+
+    private void editImpresionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editImpresionMouseClicked
+        EditImpresion print = new EditImpresion();
+        print.setLocationRelativeTo(null);
+        print.setVisible(true);
+    }//GEN-LAST:event_editImpresionMouseClicked
 
     /**
      * @param args the command line arguments

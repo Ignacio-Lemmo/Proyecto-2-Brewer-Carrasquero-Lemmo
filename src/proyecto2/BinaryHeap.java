@@ -27,22 +27,32 @@ public class BinaryHeap {
     
     //Encontrar al padre.
     public BinaryHeapNode searchFather(BinaryHeapNode root, BinaryHeapNode newNode){
-        BinaryHeapNode helper = root;
-        if (root != null && helper.getIndex() != newNode.getIndex()%2){
-            helper = searchFather(root.getLeftSon(), newNode);
-            helper = searchFather(root.getRightSon(), newNode);
+        BinaryHeapNode helper = null;
+        if (root != null && root.getIndex() != (newNode.getIndex()-1)%2){
+            if (helper == null){
+                helper = searchFather(root.getLeftSon(), newNode);
+            }
+            if (helper == null){
+                helper = searchFather(root.getRightSon(), newNode);
+            }
+            return helper;
         }
-        return helper;
+        return root;
     }
     
     //Encontrar el ultimo Nodo.
     public BinaryHeapNode searchLast(BinaryHeapNode root){
-        BinaryHeapNode helper = root;
-        if (root != null && helper.getIndex() != size){
-            helper = searchLast(root.getLeftSon());
-            helper = searchLast(root.getRightSon());
+        BinaryHeapNode helper = null;
+        if (root != null && root.getIndex() != size-1){
+            if (helper == null){
+                helper = searchLast(root.getLeftSon());
+            }
+            if (helper == null){
+                helper = searchLast(root.getRightSon());
+            }
+            return helper;
         }
-        return helper;
+        return root;
     }
     
     //Añadir un nodo.   
@@ -52,14 +62,14 @@ public class BinaryHeap {
             size ++;
         }
         else{
-            BinaryHeapNode father = searchFather(root, newNode);
+            BinaryHeapNode father = searchFather(this.root, newNode);
             if (father.getLeftSon() == null){
                 father.setLeftSon(newNode);
                 newNode.setFather(father);
                 size ++;
                 order (newNode);
             }
-            else if (father.getLeftSon() != null && father.getRightSon() != null){
+            else if (father.getLeftSon() != null && father.getRightSon() == null){
                 father.setRightSon(newNode);
                 newNode.setFather(father);
                 size ++;
@@ -136,6 +146,7 @@ public class BinaryHeap {
         BinaryHeapNode min = root;
         if (root != null){
             BinaryHeapNode last = searchLast(root);
+            System.out.println(last.getInfo().getTitle());
             BinaryHeapNode father = searchFather(root, last);
             if (father.getLeftSon() == last){
                 father.setLeftSon(null);

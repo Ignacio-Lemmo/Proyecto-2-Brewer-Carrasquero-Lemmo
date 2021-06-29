@@ -212,7 +212,7 @@ public class LogIn extends javax.swing.JFrame {
         int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
         if (priority != 2){
         InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-        BinaryHeapNode newNode = new BinaryHeapNode(InterfazInicial.userList.getNode(name).getFilesList().getNode(title), InterfazInicial.impresionList.getSize()*0.2, InterfazInicial.impresionList.getSize()+1);
+        BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.impresionList.getSize()*0.2), (InterfazInicial.impresionList.getSize()));
         InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
             if (priority == 1){
                 InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
