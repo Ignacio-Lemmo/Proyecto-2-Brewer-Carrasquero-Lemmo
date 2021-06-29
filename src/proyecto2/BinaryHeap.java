@@ -15,14 +15,22 @@ public class BinaryHeap {
         this.size = 0;
     }
     
+    //Recoger la raiz.
+    public BinaryHeapNode getRoot(){
+        return root;
+    }
+    
+    //Recoger el tamaño.
+    public int getSize(){
+        return size;
+    }
+    
     //Encontrar al padre.
     public BinaryHeapNode searchFather(BinaryHeapNode root, BinaryHeapNode newNode){
         BinaryHeapNode helper = root;
-        if (root != null){
-            while ((helper.getIndex()-1)%2 != newNode.getIndex())
-                helper = searchFather(root.getLeftSon(), newNode);
-                helper = root;
-                helper = searchFather(root.getRightSon(), newNode);
+        if (root != null && helper.getIndex() != newNode.getIndex()%2){
+            helper = searchFather(root.getLeftSon(), newNode);
+            helper = searchFather(root.getRightSon(), newNode);
         }
         return helper;
     }
@@ -30,12 +38,9 @@ public class BinaryHeap {
     //Encontrar el ultimo Nodo.
     public BinaryHeapNode searchLast(BinaryHeapNode root){
         BinaryHeapNode helper = root;
-        if (root != null){
-            while (helper.getIndex() != size){
-                helper = searchLast(root.getLeftSon());
-                helper = root;
-                helper = searchLast(root.getRightSon());
-            }
+        if (root != null && helper.getIndex() != size){
+            helper = searchLast(root.getLeftSon());
+            helper = searchLast(root.getRightSon());
         }
         return helper;
     }
@@ -153,20 +158,445 @@ public class BinaryHeap {
     
     //Ordenar Nodo.
     public void swap (BinaryHeapNode root){
+        BinaryHeapNode helper = root;
         if (root != null && root.getLeftSon() != null){
             if (root.getTime() > root.getLeftSon().getTime()){
-                if (root.getRightSon() == null){
-                    
+                if (root.getFather().getFather() == null){
+                    if (root.getRightSon() == null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            swap(root);
+                        }    
+                    }
                 }
-                else if(root.getRightSon() != null){
-                    
+                else if (root.getFather().getFather() != null && root.getFather() == root.getFather().getFather().getLeftSon()){
+                    if (root.getRightSon() == null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }    
+                    }
+                }
+                else if (root.getFather().getFather() != null && root.getFather() == root.getFather().getFather().getRightSon()){
+                    if (root.getRightSon() == null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getLeftSon().getLeftSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() == null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }
+                        else if (root.getLeftSon().getLeftSon() != null && root.getLeftSon().getRightSon() != null){
+                            root.setFather(root.getLeftSon());
+                            root.getFather().setLeftSon(root);
+                            root.getFather().setRightSon(root.getRightSon());
+                            root.setIndex(helper.getLeftSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getLeftSon().getLeftSon());
+                            root.setRightSon(helper.getLeftSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }    
+                    }
                 }
             }
         }
         else if ((root != null && root.getRightSon() != null)){
             if (root.getTime() > root.getRightSon().getTime()){
-                
+                if (root.getFather().getFather() == null){
+                    if (root.getRightSon() == null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setLeftSon(null);
+                            root.setRightSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            swap(root);
+                        }    
+                    }
+                }
+                else if (root.getFather().getFather() != null && root.getFather() == root.getFather().getFather().getLeftSon()){
+                    if (root.getRightSon() == null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setLeftSon(null);
+                            root.setRightSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setLeftSon(root.getFather());
+                            swap(root);
+                        }    
+                    }
+                }
+                else if (root.getFather().getFather() != null && root.getFather() == root.getFather().getFather().getRightSon()){
+                    if (root.getRightSon() == null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            root.setLeftSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            root.setRightSon(null);
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }
+                    }
+                    else if (root.getRightSon() != null){
+                        if (root.getRightSon().getLeftSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setRightSon(null);
+                            root.setLeftSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() == null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setRightSon(null);
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }
+                        else if (root.getRightSon().getLeftSon() != null && root.getRightSon().getRightSon() != null){
+                            root.setFather(root.getRightSon());
+                            root.getFather().setRightSon(root);
+                            root.getFather().setLeftSon(root.getLeftSon());
+                            root.setIndex(helper.getRightSon().getIndex());
+                            root.getFather().setIndex(helper.getIndex());
+                            root.setLeftSon(helper.getRightSon().getLeftSon());
+                            root.setRightSon(helper.getRightSon().getRightSon());
+                            root.getFather().setFather(helper.getFather().getFather());
+                            root.getFather().getFather().setRightSon(root.getFather());
+                            swap(root);
+                        }    
+                    }
+                }
             }
         }
+    }
+    
+    //Imprimir Lista.
+    public String inOrderPrint(BinaryHeapNode root, String text){
+        if (root != null){
+            text = inOrderPrint(root.getLeftSon(), text);
+            text += root.getInfo().getTitle() + ": " +  root.getInfo().getSize() + "\n";
+            text = inOrderPrint(root.getRightSon(), text);
+        }
+        return text;
     }
 }

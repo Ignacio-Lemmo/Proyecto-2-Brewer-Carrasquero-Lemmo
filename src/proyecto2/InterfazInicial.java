@@ -12,6 +12,7 @@ public class InterfazInicial extends javax.swing.JFrame {
      */
     public static UserList userList = new UserList();
     public static OpenerCsv file = new OpenerCsv();
+    public static BinaryHeap impresionList = new BinaryHeap();
     
     public InterfazInicial() {
         initComponents();
@@ -80,6 +81,11 @@ public class InterfazInicial extends javax.swing.JFrame {
         });
 
         showImpression.setText("Mostrar Cola de Impresión");
+        showImpression.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showImpressionMouseClicked(evt);
+            }
+        });
 
         editImpresion.setText("Editar Cola de Impresion");
 
@@ -176,6 +182,12 @@ public class InterfazInicial extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Se han guardado los cambios exitosamente.");
         
     }//GEN-LAST:event_saveMouseClicked
+
+    private void showImpressionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showImpressionMouseClicked
+        String text = "";
+        text = impresionList.inOrderPrint(impresionList.getRoot(), text);
+        JOptionPane.showMessageDialog(null, text);
+    }//GEN-LAST:event_showImpressionMouseClicked
 
     /**
      * @param args the command line arguments

@@ -14,7 +14,7 @@ public class BinaryHeapNode {
     private double time;
     
     //Constructor:
-    public BinaryHeapNode(FileNode data, float timer, int i){
+    public BinaryHeapNode(FileNode data, double timer, int i){
         this.father = null;
         this.leftSon = null;
         this.rightSon = null;
