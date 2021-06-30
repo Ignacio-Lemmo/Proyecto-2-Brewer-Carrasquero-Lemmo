@@ -189,7 +189,8 @@ public class BinaryHeap {
     //Copiar arbol.
     public BinaryHeap clone (BinaryHeapNode toCopy, BinaryHeap cloneHeap){
         if (toCopy != null){
-            cloneHeap.addNode(cloneHeap.getRoot(), toCopy);
+            BinaryHeapNode toAdd = new BinaryHeapNode(toCopy.getInfo(), toCopy.getTime(), toCopy.getIndex());
+            cloneHeap.addNode(cloneHeap.getRoot(), toAdd);
             cloneHeap = clone(toCopy.getLeftSon(), cloneHeap);
             cloneHeap = clone(toCopy.getRightSon(), cloneHeap);
         }

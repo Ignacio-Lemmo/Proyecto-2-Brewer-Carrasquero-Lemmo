@@ -51,6 +51,9 @@ public class EditImpresion extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eraseSelectionMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eraseSelectionMouseEntered(evt);
+            }
         });
 
         exit.setText("Regresar");
@@ -131,6 +134,10 @@ public class EditImpresion extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Archivo eliminado exitosamente de la lista de impresion");
         this.dispose();
     }//GEN-LAST:event_eraseSelectionMouseClicked
+
+    private void eraseSelectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eraseSelectionMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eraseSelectionMouseEntered
 
     /**
      * @param args the command line arguments

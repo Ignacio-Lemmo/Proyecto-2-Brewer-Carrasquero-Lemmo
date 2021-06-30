@@ -94,6 +94,7 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="eraseSelectionMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="eraseSelectionMouseEntered"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="exit">
