@@ -11,25 +11,20 @@ public class BinaryHeapNode {
     private BinaryHeapNode rightSon;
     private FileNode info;
     private int index;
-    private double time;
+    private int time;
     
     //Constructor:
-    public BinaryHeapNode(FileNode data, double timer, int i){
+    public BinaryHeapNode(FileNode data, int timer, int i){
         this.father = null;
         this.leftSon = null;
         this.rightSon = null;
         this.info = data;
         this.index = i;
-        if (data.getUrgency() == true){
-            if (data.getPriorityInt() == 1){
-                this.time = timer * 0.001;
-            }
-            else if (data.getPriorityInt() == 2){
-                this.time = timer * 0.0001;
-            }
-            else if (data.getPriorityInt() == 3){
-                this.time = timer * 0.00001;
-            }
+        if(info.getUrgency() == true){
+            this.time = timer + (info.getPriorityInt() * info.getSize());
+        }
+        else if (info.getUrgency() == false){
+            this.time = (timer + info.getSize() * 4);
         }
     }
     
@@ -75,8 +70,13 @@ public class BinaryHeapNode {
     
     
     //Recoger el tiempo.
-    public double getTime(){
+    public int getTime(){
         return time;
+    }
+    
+    //Establecer el tiempo.
+    public void setTime(int newTime){
+        this.time = newTime;
     }
     
     //Recoger el indice.

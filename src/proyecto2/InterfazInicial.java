@@ -190,7 +190,17 @@ public class InterfazInicial extends javax.swing.JFrame {
 
     private void showImpressionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showImpressionMouseClicked
         String text = "";
-        text = impresionList.inOrderPrint(impresionList.getRoot(), text);
+        BinaryHeap helper = new BinaryHeap();
+        helper = helper.clone(impresionList.getRoot(), helper);
+        while (true){
+            try{
+                FileNode deleted = helper.eraseMin2();
+                text += deleted.getTitle() + ": " + deleted.getSize() + " paginas.\n";
+            }
+            catch (Exception e){
+                break;
+            }
+        }
         JOptionPane.showMessageDialog(null, text);
     }//GEN-LAST:event_showImpressionMouseClicked
 

@@ -210,14 +210,21 @@ public class LogIn extends javax.swing.JFrame {
         String title = fileBox.getSelectedItem().toString();
         String name = userBox.getSelectedItem().toString();
         int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
-        if (priority != 2){
-        InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-        BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.impresionList.getSize()*0.2), (InterfazInicial.impresionList.getSize()));
-        InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
-            if (priority == 1){
-                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
-            }
+        if (priority == 0){
+            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
+            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+            BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize()), (InterfazInicial.impresionList.getSize()));
+            InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
             JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+        }    
+        else if (priority == 1){
+            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+            BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize()), (InterfazInicial.impresionList.getSize()));
+            InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
+            JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+        }
+        else if (priority == 2){
+            JOptionPane.showMessageDialog(null, "Se cancelado la operacion.");
         }
         this.dispose();
     }//GEN-LAST:event_printMouseClicked

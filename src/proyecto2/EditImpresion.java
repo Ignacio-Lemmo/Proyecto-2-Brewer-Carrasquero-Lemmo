@@ -16,8 +16,15 @@ public class EditImpresion extends javax.swing.JFrame {
     /**
      * Creates new form EditImpresion
      */
+    
     public EditImpresion() {
         initComponents();
+        BinaryHeap helper = new BinaryHeap();
+        helper = helper.clone(InterfazInicial.impresionList.getRoot(), helper);
+        while (helper.getRoot() != null){
+            String deleted = helper.eraseMin2().getTitle();
+            impresionListBox.addItem(deleted);
+        }
     }
 
     /**
@@ -29,9 +36,9 @@ public class EditImpresion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
+        impresionListBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        eraseSelection = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         print = new javax.swing.JButton();
 
@@ -39,7 +46,12 @@ public class EditImpresion extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione el archivo que desea eliminar:");
 
-        jButton1.setText("Eliminar");
+        eraseSelection.setText("Eliminar");
+        eraseSelection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eraseSelectionMouseClicked(evt);
+            }
+        });
 
         exit.setText("Regresar");
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,11 +77,11 @@ public class EditImpresion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(impresionListBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
+                                .addComponent(eraseSelection)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
@@ -88,8 +100,8 @@ public class EditImpresion extends javax.swing.JFrame {
                     .addComponent(exit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(impresionListBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eraseSelection))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(print)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -103,9 +115,22 @@ public class EditImpresion extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMouseClicked
 
     private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
-        BinaryHeapNode printed = InterfazInicial.impresionList.eraseMin();
-        JOptionPane.showMessageDialog(null, printed.getInfo().getTitle() + "\nSe ha impreso el archivo correctamente.");
+        if (InterfazInicial.impresionList.getRoot() != null){
+            FileNode printed = InterfazInicial.impresionList.eraseMin2();
+            JOptionPane.showMessageDialog(null, "Titulo: " + printed.getTitle() + "\nNumero de paginas: " + printed.getSize() + "\n\nSe ha impreso el archivo correctamente.");  
+        } 
+        else if(InterfazInicial.impresionList.getRoot() == null){
+            JOptionPane.showMessageDialog(null, "Hubo un error al intentar imprimir el archivo. \nAsegurese de que la cola de impresion no este vacia.");
+        }
     }//GEN-LAST:event_printMouseClicked
+
+    private void eraseSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eraseSelectionMouseClicked
+        InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), impresionListBox.getSelectedItem().toString()).setTime(0);
+        InterfazInicial.impresionList.order2(InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), impresionListBox.getSelectedItem().toString()));
+        InterfazInicial.impresionList.eraseMin2();
+        JOptionPane.showMessageDialog(null, "Archivo eliminado exitosamente de la lista de impresion");
+        this.dispose();
+    }//GEN-LAST:event_eraseSelectionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -143,9 +168,9 @@ public class EditImpresion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton eraseSelection;
     private javax.swing.JButton exit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> impresionListBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton print;
     // End of variables declaration//GEN-END:variables

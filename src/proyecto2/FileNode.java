@@ -23,13 +23,13 @@ public class FileNode {
         this.urgent = false;
         this.filePriorityString = priority;
         if (priority.equalsIgnoreCase("prioridad_baja")) {
-            this.filePriorityNumber = 1;
+            this.filePriorityNumber = 3;
         }
         else if (priority.equalsIgnoreCase("prioridad_media")) {
             this.filePriorityNumber = 2;
         }
         else if (priority.equalsIgnoreCase("prioridad_alta")) {
-            this.filePriorityNumber = 3;
+            this.filePriorityNumber = 1;
         }
         else{
             this.filePriorityNumber = 0;
