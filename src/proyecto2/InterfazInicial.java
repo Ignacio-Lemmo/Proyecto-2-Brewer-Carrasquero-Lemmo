@@ -281,19 +281,19 @@ public class InterfazInicial extends javax.swing.JFrame {
                     text = "         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ; 
                 } else if (contador == 6) {
                     h = deleted.getTitle();
-                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ;
+                    text = "              " + h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ;
                 } else if (contador == 7) {
                     i = deleted.getTitle();
-                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d + "\n" + "                        " + i; ;
+                    text = "              " +h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d + "\n" + "                        " + i; ;
                 } else if (contador == 8) {
                     j = deleted.getTitle();
-                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;
+                    text = "              " +h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;
                 } else if (contador == 9) {
                     k = deleted.getTitle();
-                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;   
+                    text = "              " +h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;   
                 } else if (contador == 10) {
                     l = deleted.getTitle();
-                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n" + "                        " + l + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;  
+                    text = "              " +h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n" + "                        " + l + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;  
                 }
                 contador++;
             }

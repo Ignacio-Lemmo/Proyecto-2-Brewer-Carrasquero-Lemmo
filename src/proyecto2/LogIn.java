@@ -197,43 +197,48 @@ public class LogIn extends javax.swing.JFrame {
 
     private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
         try{
-            float hora = java.time.LocalTime.now().getHour();
-            float minuto = java.time.LocalTime.now().getMinute();
-            float segundo = java.time.LocalTime.now().getSecond();
-            float hms = (hora+minuto/60+segundo/3600); //Almacena la hora actual del momento en el que se envió a imprimir un documento.
-            //System.out.println(hora+minuto/60+segundo/3600);
-            String title = fileBox.getSelectedItem().toString();
-            String name = userBox.getSelectedItem().toString();
-            int paginas = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize();
-            int prioridad = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getPriorityInt();
-            int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
-            if (priority == 0){
-                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
-                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-                //Llenado de HashTable
-                InterfazInicial.hashTable.insertar(hms+(paginas*prioridad), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
-                //--------------------
-                BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*prioridad), (InterfazInicial.impresionList.getSize()));
-                InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
-                JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
-            }    
-            else if (priority == 1){
-                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-                //Llenado de HashTable
-                InterfazInicial.hashTable.insertar(hms+(paginas*4), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
-                //---------------------
-                BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*4), (InterfazInicial.impresionList.getSize()));
-                InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
-                JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+            if (InterfazInicial.hashTable.buscar1(userBox.getSelectedItem().toString(), fileBox.getSelectedItem().toString()) == false){
+                float hora = java.time.LocalTime.now().getHour();
+                float minuto = java.time.LocalTime.now().getMinute();
+                float segundo = java.time.LocalTime.now().getSecond();
+                float hms = (hora+minuto/60+segundo/3600); //Almacena la hora actual del momento en el que se envió a imprimir un documento.
+                //System.out.println(hora+minuto/60+segundo/3600);
+                String title = fileBox.getSelectedItem().toString();
+                String name = userBox.getSelectedItem().toString();
+                int paginas = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize();
+                int prioridad = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getPriorityInt();
+                int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
+                if (priority == 0){
+                    InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
+                    InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+                    //Llenado de HashTable
+                    InterfazInicial.hashTable.insertar(hms+(paginas*prioridad), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
+                    //--------------------
+                    BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*prioridad), (InterfazInicial.impresionList.getSize()));
+                    InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
+                    JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+                }    
+                else if (priority == 1){
+                    InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+                    //Llenado de HashTable
+                    InterfazInicial.hashTable.insertar(hms+(paginas*4), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
+                    //---------------------
+                    BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*4), (InterfazInicial.impresionList.getSize()));
+                    InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
+                    JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+                }
+                else if (priority == 2){
+                    JOptionPane.showMessageDialog(null, "Se cancelado la operacion.");
+                }
+                this.dispose();
+                fileBox.removeAllItems();
+                waitingList.removeAllItems();
+                this.setVisible(true);
+                this.setLocationRelativeTo(null);
             }
-            else if (priority == 2){
-                JOptionPane.showMessageDialog(null, "Se cancelado la operacion.");
+            else{
+                JOptionPane.showMessageDialog(null, "Error, ya existe un archivo en cola con este titulo, \nespere que sea impreso para volver a imprimirlo.");
             }
-            this.dispose();
-            fileBox.removeAllItems();
-            waitingList.removeAllItems();
-            this.setVisible(true);
-            this.setLocationRelativeTo(null);
         }
         catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: Asegurese de haber seleccionado un archivo antes de imprimirlo.");

@@ -198,7 +198,33 @@ public class HashTable {
         JOptionPane.showMessageDialog(null, colaImpresion);
     }
     
-    
-    
-    
+    /**
+     * Busca el nodo Hash dentro de la tabla de dispersión
+     * @param nombreUsuario
+     * @param time //Tiempo en el que el documento se mandó a imprimir
+     * @return Boolean 
+     */
+    public boolean buscar1(String nombreUsuario, String nombreDocumento){
+        int posicion = hashing(nombreUsuario.toLowerCase());
+        HashNode aux = this.tabla[posicion];
+        boolean existe = false;
+        if (aux != null) {
+            if (aux.getInformacionDocumento().getTitle().equalsIgnoreCase(nombreDocumento)) {
+                existe = true;
+            }
+            while(aux.getNext() != null && !existe){
+                if (aux.getInformacionDocumento().getTitle().equalsIgnoreCase(nombreDocumento)) {
+                    existe = true;
+                } else {
+                    aux = aux.getNext();
+                }
+            }
+        }
+        if (existe) {
+            return true;
+            
+        } else {
+            return false;
+        }
+    }
 }
