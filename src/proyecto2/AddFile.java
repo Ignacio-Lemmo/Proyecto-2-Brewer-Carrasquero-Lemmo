@@ -17,8 +17,10 @@ public class AddFile extends javax.swing.JFrame {
      * Creates new form AddFile
      */
     public static String name;
+    public static LogIn login = new LogIn();
     public AddFile(String names) {
         initComponents();
+        this.setDefaultCloseOperation(1);
         name = names;
     }
 
@@ -98,16 +100,25 @@ public class AddFile extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         this.dispose();
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
     }//GEN-LAST:event_exitActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-         String names = title.getText();
-        int length = Integer.parseInt(size.getText());
-        UserNode user = InterfazInicial.userList.getNode(name);
-        FileNode newNode = new FileNode(names, length, user.getPriorityString());
-        user.getFilesList().addFile(newNode);
-        JOptionPane.showMessageDialog(null, "El archivo se ha creado exitosamente.");
-        this.dispose();
+        try{
+            String names = title.getText();
+            int length = Integer.parseInt(size.getText());
+            UserNode user = InterfazInicial.userList.getNode(name);
+            FileNode newNode = new FileNode(names, length, user.getPriorityString());
+            user.getFilesList().addFile(newNode);
+            JOptionPane.showMessageDialog(null, "El archivo se ha creado exitosamente.");
+            this.dispose();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error: asegurese de que los datos ingresados sean correctos.");
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**

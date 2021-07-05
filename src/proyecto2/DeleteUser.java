@@ -19,6 +19,7 @@ public class DeleteUser extends javax.swing.JFrame {
     
     public DeleteUser() {
         initComponents();
+        this.setDefaultCloseOperation(1);
         for (int i = 0; i < InterfazInicial.userList.getSize(); i++) {
             String name = InterfazInicial.userList.getNodeAt(i).getName();
             nameBox.addItem(name);

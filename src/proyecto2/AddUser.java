@@ -19,6 +19,7 @@ public class AddUser extends javax.swing.JFrame {
      */
     public AddUser() {
         initComponents();
+        this.setDefaultCloseOperation(1);
         
     }
 

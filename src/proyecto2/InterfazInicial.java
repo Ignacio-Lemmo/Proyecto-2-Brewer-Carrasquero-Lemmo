@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 /**
  * @author Ignacio
+ * Agregadas las variables de tiempo, la impresión del árbol (puede mejorar). Falta explicar funcionamiento y validar.
  */
 public class InterfazInicial extends javax.swing.JFrame {
 
@@ -13,9 +14,11 @@ public class InterfazInicial extends javax.swing.JFrame {
     public static UserList userList = new UserList();
     public static OpenerCsv file = new OpenerCsv();
     public static BinaryHeap impresionList = new BinaryHeap();
+    public static HashTable hashTable = new HashTable(97);
     
     public InterfazInicial() {
         initComponents();
+
     }
 
     /**
@@ -27,39 +30,38 @@ public class InterfazInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        save = new javax.swing.JButton();
+        logIn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        editImpresion = new javax.swing.JButton();
+        buttonMostrarBinario = new javax.swing.JButton();
+        showImpression = new javax.swing.JButton();
+        showUsers = new javax.swing.JButton();
         newUser = new javax.swing.JButton();
         deleteUser = new javax.swing.JButton();
-        logIn = new javax.swing.JButton();
-        showUsers = new javax.swing.JButton();
-        showImpression = new javax.swing.JButton();
-        editImpresion = new javax.swing.JButton();
-        save = new javax.swing.JButton();
+        buttonFuncionamiento = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        newUser.setText("Agregar Usuario");
-        newUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                newUserMouseClicked(evt);
-            }
-        });
-        newUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newUserActionPerformed(evt);
-            }
-        });
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 330));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        deleteUser.setText("Eliminar Usuario");
-        deleteUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        save.setText("Guardar");
+        save.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteUserMouseClicked(evt);
+                saveMouseClicked(evt);
             }
         });
-        deleteUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteUserActionPerformed(evt);
-            }
-        });
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 110, -1));
 
         logIn.setText("Iniciar Sesion");
         logIn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,13 +74,36 @@ public class InterfazInicial extends javax.swing.JFrame {
                 logInActionPerformed(evt);
             }
         });
+        jPanel1.add(logIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 110, -1));
 
-        showUsers.setText("Mostrar Lista de Usuarios");
-        showUsers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showUsersActionPerformed(evt);
+        jButton1.setText("Imprimir primero en cola");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 230, -1));
+
+        editImpresion.setText("Eliminar archivo en Cola de Impresion");
+        editImpresion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editImpresionMouseClicked(evt);
+            }
+        });
+        editImpresion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editImpresionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(editImpresion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 230, -1));
+
+        buttonMostrarBinario.setText("Mostrar Montículo Binario");
+        buttonMostrarBinario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonMostrarBinarioMouseClicked(evt);
+            }
+        });
+        jPanel1.add(buttonMostrarBinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 230, -1));
 
         showImpression.setText("Mostrar Cola de Impresión");
         showImpression.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -86,69 +111,65 @@ public class InterfazInicial extends javax.swing.JFrame {
                 showImpressionMouseClicked(evt);
             }
         });
+        jPanel1.add(showImpression, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 230, -1));
 
-        editImpresion.setText("Editar Cola de Impresion");
-        editImpresion.addMouseListener(new java.awt.event.MouseAdapter() {
+        showUsers.setText("Mostrar Lista de Usuarios");
+        showUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editImpresionMouseClicked(evt);
+                showUsersMouseClicked(evt);
             }
         });
-
-        save.setText("Guardar Cambios");
-        save.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saveMouseClicked(evt);
+        showUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showUsersActionPerformed(evt);
             }
         });
+        jPanel1.add(showUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 230, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteUser)
-                    .addComponent(newUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(logIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(showImpression, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(showUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(editImpresion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(107, 107, 107))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(showUsers)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showImpression)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editImpresion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newUser)
-                    .addComponent(logIn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteUser)
-                    .addComponent(save))
-                .addContainerGap())
-        );
+        newUser.setText("Agregar Usuario");
+        newUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                newUserMouseClicked(evt);
+            }
+        });
+        newUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newUserActionPerformed(evt);
+            }
+        });
+        jPanel1.add(newUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 110, -1));
+
+        deleteUser.setText("Eliminar Usuario");
+        deleteUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteUserMouseClicked(evt);
+            }
+        });
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
+            }
+        });
+        jPanel1.add(deleteUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 110, -1));
+
+        buttonFuncionamiento.setText("Funcionamiento");
+        buttonFuncionamiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonFuncionamientoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(buttonFuncionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora.jpg"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 540, 230));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void showUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUsersActionPerformed
-        String list = userList.printList();
-        JOptionPane.showMessageDialog(null, list);
+
     }//GEN-LAST:event_showUsersActionPerformed
 
     private void newUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserActionPerformed
@@ -202,6 +223,7 @@ public class InterfazInicial extends javax.swing.JFrame {
             }
         }
         JOptionPane.showMessageDialog(null, text);
+        InterfazInicial.hashTable.imprimir();
     }//GEN-LAST:event_showImpressionMouseClicked
 
     private void editImpresionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editImpresionMouseClicked
@@ -209,6 +231,90 @@ public class InterfazInicial extends javax.swing.JFrame {
         print.setLocationRelativeTo(null);
         print.setVisible(true);
     }//GEN-LAST:event_editImpresionMouseClicked
+
+    private void editImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editImpresionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editImpresionActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        if (InterfazInicial.impresionList.getRoot() != null){
+            BinaryHeapNode printed2 = InterfazInicial.impresionList.getRoot();
+            InterfazInicial.hashTable.EliminarPrimero(printed2);
+            FileNode printed = InterfazInicial.impresionList.eraseMin2();
+            printed.setWaiting2();
+            JOptionPane.showMessageDialog(null, "Titulo: " + printed.getTitle() + "\nNumero de paginas: " + printed.getSize() + "\n\nSe ha impreso el archivo correctamente.");  
+        } 
+        else if(InterfazInicial.impresionList.getRoot() == null){
+            JOptionPane.showMessageDialog(null, "Hubo un error al intentar imprimir el archivo. \nAsegurese de que la cola de impresion no este vacia.");
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void buttonMostrarBinarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonMostrarBinarioMouseClicked
+        // TODO add your handling code here:
+        String text = "";
+        String a,b,c,d,f,g,h,i,j,k,l;
+        a = b = c = d = f = g = h = i = j = k = l = "";
+        BinaryHeap helper = new BinaryHeap();
+        helper = helper.clone(impresionList.getRoot(), helper);
+        int contador = 0;
+        while (true){
+            try{
+                FileNode deleted = helper.eraseMin2();
+                if (contador == 0) {
+                    a = deleted.getTitle();
+                    text = a;
+                } else if (contador == 1) {
+                    b = deleted.getTitle();
+                    text = a + "\n" + "         " + b;
+                } else if (contador == 2) {
+                    c = deleted.getTitle();
+                    text = "         " + c + "\n" + a + "\n"+"         " + b;
+                } else if (contador == 3) {
+                    d = deleted.getTitle();
+                    text = "         " + c + "\n" + a + "\n"+"         " + b + "\n" + "              " + d ;
+                } else if (contador == 4) {
+                    f = deleted.getTitle();
+                    text = "         " + c + "\n" + "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ;
+                } else if (contador == 5) {
+                    g = deleted.getTitle();
+                    text = "         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ; 
+                } else if (contador == 6) {
+                    h = deleted.getTitle();
+                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d ;
+                } else if (contador == 7) {
+                    i = deleted.getTitle();
+                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "              " + d + "\n" + "                        " + i; ;
+                } else if (contador == 8) {
+                    j = deleted.getTitle();
+                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;
+                } else if (contador == 9) {
+                    k = deleted.getTitle();
+                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;   
+                } else if (contador == 10) {
+                    l = deleted.getTitle();
+                    text = h + "              " + "\n" +"         " + c  + "\n" + "              "+ g  +  "\n" + a + "\n" + "                        " + l + "\n"+"              " + f+ "\n" + "                        " + k +"\n"+"         " + b + "\n" + "                        " + j + "\n" + "              " + d + "\n" + "                        " + i; ;  
+                }
+                contador++;
+            }
+            catch (Exception e){
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(null, text);
+    }//GEN-LAST:event_buttonMostrarBinarioMouseClicked
+
+    private void buttonFuncionamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonFuncionamientoMouseClicked
+        // TODO add your handling code here:
+        FuncInterfazInicial fii = new FuncInterfazInicial();
+        fii.setLocationRelativeTo(null);
+        fii.setVisible(true);
+    }//GEN-LAST:event_buttonFuncionamientoMouseClicked
+
+    private void showUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showUsersMouseClicked
+        String list = userList.printList();
+        JOptionPane.showMessageDialog(null, list);
+    }//GEN-LAST:event_showUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -269,11 +375,22 @@ public class InterfazInicial extends javax.swing.JFrame {
         catch (NullPointerException e){           
             System.exit(0);
         }
+        JOptionPane.showMessageDialog(null, "¡Bienvenido a impresiones UNIMET! \n\nPara más información puede presionar el botón 'funcionamiento'\n\nDisfrute del servicio.");
+
+            
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonFuncionamiento;
+    private javax.swing.JButton buttonMostrarBinario;
     private javax.swing.JButton deleteUser;
     private javax.swing.JButton editImpresion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logIn;
     private javax.swing.JButton newUser;
     private javax.swing.JButton save;

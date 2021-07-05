@@ -3,6 +3,9 @@ package proyecto2;
 /**
  * @author Ignacio
  */
+
+import java.text.SimpleDateFormat;  
+import java.util.Date;
 public class BinaryHeapNode {
    
     //Atributos:
@@ -11,21 +14,22 @@ public class BinaryHeapNode {
     private BinaryHeapNode rightSon;
     private FileNode info;
     private int index;
-    private int time;
+    private float time;
     
     //Constructor:
-    public BinaryHeapNode(FileNode data, int timer, int i){
+    public BinaryHeapNode(FileNode data, float timer, int i){
         this.father = null;
         this.leftSon = null;
         this.rightSon = null;
         this.info = data;
         this.index = i;
-        if(info.getUrgency() == true){
-            this.time = timer + (info.getPriorityInt() * info.getSize());
-        }
-        else if (info.getUrgency() == false){
-            this.time = (timer + info.getSize() * 4);
-        }
+        this.time = timer;
+//        if(info.getUrgency() == true){
+//            this.time = (timer + (info.getPriorityInt() * info.getSize()));
+//        }
+//        else if (info.getUrgency() == false){
+//            this.time = (timer + (info.getSize() * 4));
+//        }
     }
     
     //Recoger el padre.
@@ -70,12 +74,12 @@ public class BinaryHeapNode {
     
     
     //Recoger el tiempo.
-    public int getTime(){
+    public float getTime(){
         return time;
     }
     
     //Establecer el tiempo.
-    public void setTime(int newTime){
+    public void setTime(float newTime){
         this.time = newTime;
     }
     

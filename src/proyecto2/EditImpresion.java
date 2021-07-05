@@ -19,12 +19,17 @@ public class EditImpresion extends javax.swing.JFrame {
     
     public EditImpresion() {
         initComponents();
+        this.setDefaultCloseOperation(1);
         BinaryHeap helper = new BinaryHeap();
         helper = helper.clone(InterfazInicial.impresionList.getRoot(), helper);
-        while (helper.getRoot() != null){
-            String deleted = helper.eraseMin2().getTitle();
-            impresionListBox.addItem(deleted);
+        for (int i = 0; i < InterfazInicial.hashTable.tableSize; i++) {
+            if (InterfazInicial.hashTable.tabla[i] != null) {
+                usuarioBox.addItem(InterfazInicial.hashTable.tabla[i].getInformacionUsuario().getName());
+                System.out.println("Entro");
+
+            }
         }
+            
     }
 
     /**
@@ -36,15 +41,16 @@ public class EditImpresion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        impresionListBox = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         eraseSelection = new javax.swing.JButton();
         exit = new javax.swing.JButton();
-        print = new javax.swing.JButton();
+        usuarioBox = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        seleccionarButton = new javax.swing.JButton();
+        documentosBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Seleccione el archivo que desea eliminar:");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         eraseSelection.setText("Eliminar");
         eraseSelection.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -55,6 +61,7 @@ public class EditImpresion extends javax.swing.JFrame {
                 eraseSelectionMouseEntered(evt);
             }
         });
+        getContentPane().add(eraseSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 100, -1));
 
         exit.setText("Regresar");
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,53 +69,25 @@ public class EditImpresion extends javax.swing.JFrame {
                 exitMouseClicked(evt);
             }
         });
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, -1));
 
-        print.setText("Imprimir archivo en cola");
-        print.addMouseListener(new java.awt.event.MouseAdapter() {
+        getContentPane().add(usuarioBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 195, -1));
+
+        jLabel2.setText("Usuarios con documentos en cola de impresión:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        seleccionarButton.setText("Seleccionar");
+        seleccionarButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                printMouseClicked(evt);
+                seleccionarButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(seleccionarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(impresionListBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(eraseSelection)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                                .addComponent(exit)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(print)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(exit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(impresionListBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eraseSelection))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(print)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(documentosBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 190, -1));
+
+        jLabel3.setText("Documento a eliminar de la cola de impresión:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,20 +96,15 @@ public class EditImpresion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
 
-    private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
-        if (InterfazInicial.impresionList.getRoot() != null){
-            FileNode printed = InterfazInicial.impresionList.eraseMin2();
-            JOptionPane.showMessageDialog(null, "Titulo: " + printed.getTitle() + "\nNumero de paginas: " + printed.getSize() + "\n\nSe ha impreso el archivo correctamente.");  
-        } 
-        else if(InterfazInicial.impresionList.getRoot() == null){
-            JOptionPane.showMessageDialog(null, "Hubo un error al intentar imprimir el archivo. \nAsegurese de que la cola de impresion no este vacia.");
-        }
-    }//GEN-LAST:event_printMouseClicked
-
     private void eraseSelectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eraseSelectionMouseClicked
-        InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), impresionListBox.getSelectedItem().toString()).setTime(0);
-        InterfazInicial.impresionList.order2(InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), impresionListBox.getSelectedItem().toString()));
-        InterfazInicial.impresionList.eraseMin2();
+
+        HashNode eliminar = InterfazInicial.hashTable.buscar(usuarioBox.getSelectedItem().toString().toLowerCase(), documentosBox.getSelectedItem().toString());
+        InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), eliminar.getInformacionDocumento().getTitle()).setTime(0);
+        InterfazInicial.impresionList.order2(InterfazInicial.impresionList.searchNode(InterfazInicial.impresionList.getRoot(), eliminar.getInformacionDocumento().getTitle()));
+        InterfazInicial.impresionList.eraseMin2().setWaiting2();
+        InterfazInicial.hashTable.Eliminar(usuarioBox.getSelectedItem().toString().toLowerCase(), documentosBox.getSelectedItem().toString());
+        //Eliminar de la Tabla de Dispersión
+        //InterfazInicial.impresionList.eraseMin2().setWaiting2(); //Agregué esto
         JOptionPane.showMessageDialog(null, "Archivo eliminado exitosamente de la lista de impresion");
         this.dispose();
     }//GEN-LAST:event_eraseSelectionMouseClicked
@@ -138,6 +112,26 @@ public class EditImpresion extends javax.swing.JFrame {
     private void eraseSelectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eraseSelectionMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_eraseSelectionMouseEntered
+
+    private void seleccionarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccionarButtonMouseClicked
+        // TODO add your handling code here:
+        documentosBox.removeAllItems();
+        String usuario = usuarioBox.getSelectedItem().toString();
+        for (int i = 0; i < InterfazInicial.hashTable.tableSize; i++) {
+            if (InterfazInicial.hashTable.tabla[i] != null) {
+                if (InterfazInicial.hashTable.tabla[i].getInformacionUsuario().getName().equalsIgnoreCase(usuario)) {
+                    documentosBox.addItem(InterfazInicial.hashTable.tabla[i].getInformacionDocumento().getTitle());
+                    if (InterfazInicial.hashTable.tabla[i].getNext() != null) {
+                        HashNode aux = InterfazInicial.hashTable.tabla[i].getNext();
+                        while (aux != null){
+                            documentosBox.addItem(aux.getInformacionDocumento().getTitle());
+                            aux = aux.getNext();
+                        }
+                    }
+                }   
+            }
+        }
+    }//GEN-LAST:event_seleccionarButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,10 +169,12 @@ public class EditImpresion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> documentosBox;
     private javax.swing.JButton eraseSelection;
     private javax.swing.JButton exit;
-    private javax.swing.JComboBox<String> impresionListBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton print;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton seleccionarButton;
+    private javax.swing.JComboBox<String> usuarioBox;
     // End of variables declaration//GEN-END:variables
 }

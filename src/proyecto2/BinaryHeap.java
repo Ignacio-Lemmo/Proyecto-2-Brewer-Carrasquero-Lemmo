@@ -32,10 +32,15 @@ public class BinaryHeap {
         return size;
     }
     
-    //Encontrar al padre.
+    /**
+     * Busca el nodo padre para saber la posición donde va a insertar el nuevo nodo
+     * @param root
+     * @param newNode
+     * @return 
+     */
     public BinaryHeapNode searchFather(BinaryHeapNode root, BinaryHeapNode newNode){
         BinaryHeapNode helper = null;
-        if (root != null && root.getIndex() != (newNode.getIndex()-1)%2){
+        if (root != null && root.getIndex() != Math.floor((newNode.getIndex()-1)/2)){
             if (helper == null){
                 helper = searchFather(root.getLeftSon(), newNode);
             }
@@ -47,7 +52,11 @@ public class BinaryHeap {
         return root;
     }
     
-    //Encontrar el ultimo Nodo.
+    /**
+     * Encuentra el último nodo
+     * @param root
+     * @return 
+     */
     public BinaryHeapNode searchLast(BinaryHeapNode root){
         BinaryHeapNode helper = null;
         if (root != null && root.getIndex() != size-1){
@@ -62,7 +71,11 @@ public class BinaryHeap {
         return root;
     }
     
-    //Añadir un nodo.   
+    /**
+     * Añade un nodo
+     * @param root
+     * @param newNode 
+     */  
     public void addNode(BinaryHeapNode root, BinaryHeapNode newNode){
         if (this.root == null){
             this.root = newNode;
@@ -85,12 +98,15 @@ public class BinaryHeap {
         }
     }
     
-    //Ordenar el nodo despues de agregado.
+    /**
+     * Ordena el montículo después de agregado el nodo
+     * @param newNode 
+     */
     public void order2(BinaryHeapNode newNode){
         if (newNode.getFather() != null){
             if (newNode.getTime() < newNode.getFather().getTime()){
                 FileNode info = newNode.getInfo();
-                int time = newNode.getTime();
+                float time = newNode.getTime();
                 newNode.setInfo(newNode.getFather().getInfo());
                 newNode.setTime(newNode.getFather().getTime());
                 newNode.getFather().setInfo(info);
@@ -100,7 +116,11 @@ public class BinaryHeap {
         }
     }
     
-    //Eliminar el nodo mas pequeño.
+    
+    /**
+     * Elimina el nodo más pequeño
+     * @return retorna un nodo de tipo File Node para eliminarlo del montículo
+     */
     public FileNode eraseMin2(){
         FileNode min = root.getInfo();
         if (root != null && root.getLeftSon() != null){
@@ -123,12 +143,15 @@ public class BinaryHeap {
         return min;   
     }
     
-    //Ordenar despues de eliminar.
+    /**
+     * Ordena el montículo después de eliminar el que tiene valor más pequeño
+     * @param root 
+     */
     public void swap2(BinaryHeapNode root){
         if (root.getRightSon() != null && root.getLeftSon() != null){
             BinaryHeapNode min = null;
             FileNode info = root.getInfo();
-            int time = root.getTime();
+            float time = root.getTime();
             if (root.getRightSon().getTime() > root.getLeftSon().getTime()){
                 min = root.getLeftSon();
                 root.setInfo(min.getInfo());
@@ -149,7 +172,7 @@ public class BinaryHeap {
         else if (root.getLeftSon() != null && root.getRightSon() == null){
             BinaryHeapNode min = null;
             FileNode info = root.getInfo();
-            int time = root.getTime();
+            float time = root.getTime();
             if (root.getTime() > root.getLeftSon().getTime()){
                 min = root.getLeftSon();
                 root.setInfo(min.getInfo());
@@ -161,7 +184,12 @@ public class BinaryHeap {
         }
     }   
     
-    //Encontrar nodo en base al nombre.
+    /**
+     * Busca el un nodo dentro del montículo. No se utiliza.
+     * @param root
+     * @param find
+     * @return 
+     */
     public BinaryHeapNode searchNode(BinaryHeapNode root, String find){
         BinaryHeapNode helper = null;
         if (root != null && !(root.getInfo().getTitle().equalsIgnoreCase(find))){
@@ -176,7 +204,12 @@ public class BinaryHeap {
         return root;
     }
     
-    //Imprimir arbol.
+    /**
+     * Imprimir inOrden. No se utiliza.
+     * @param root
+     * @param text
+     * @return 
+     */
     public String inOrderPrint(BinaryHeapNode root, String text){
         if (root != null){
             text += root.getInfo().getTitle() + ": " +  root.getInfo().getSize() + "\n";
@@ -186,7 +219,12 @@ public class BinaryHeap {
         return text;
     }
     
-    //Copiar arbol.
+    /**
+     * Función que permite clonar el árbol para efectuar operaciones varias
+     * @param toCopy
+     * @param cloneHeap
+     * @return 
+     */
     public BinaryHeap clone (BinaryHeapNode toCopy, BinaryHeap cloneHeap){
         if (toCopy != null){
             BinaryHeapNode toAdd = new BinaryHeapNode(toCopy.getInfo(), toCopy.getTime(), toCopy.getIndex());
@@ -195,6 +233,54 @@ public class BinaryHeap {
             cloneHeap = clone(toCopy.getRightSon(), cloneHeap);
         }
         return cloneHeap;
+    }
+    
+    /**
+     * Elimina el nodo más pequeño
+     * @return retorna un nodo de tipo File Node para eliminarlo del montículo
+     */
+    public BinaryHeapNode eraseMin1(){
+        BinaryHeapNode min = root;
+        if (root != null && root.getLeftSon() != null){
+            BinaryHeapNode last = searchLast(this.root);
+            BinaryHeapNode father = searchFather(this.root, last);
+            if (father.getLeftSon() == last){
+                last.getFather().setLeftSon(null);
+            }
+            else if (father.getRightSon() == last){
+                last.getFather().setRightSon(null);
+            }
+            root.setInfo(last.getInfo());
+            root.setTime(last.getTime());
+            size --;
+            swap2(this.root);
+        }
+        else if (root == null || root.getFather() == null || root.getLeftSon() == null){
+            root = null;
+        }
+        InterfazInicial.hashTable.imprimir();
+        JOptionPane.showMessageDialog(null, min.getInfo().getTitle() + min.getTime());
+        return min;   
+    }
+    
+    /**
+     * Busca el un nodo dentro del montículo. No se utiliza.
+     * @param root
+     * @param find
+     * @return 
+     */
+    public BinaryHeapNode searchIndex(BinaryHeapNode root, int find){
+        BinaryHeapNode helper = null;
+        if (root != null && !(root.getIndex() == find)){
+            if (helper == null){
+                helper = searchIndex(root.getLeftSon(), find);
+            }
+            if (helper == null){
+                helper = searchIndex(root.getRightSon(), find);
+            }
+            return helper;
+        }
+        return root;
     }
 //    //Ordenar nuevo nodo en arbol.
 //    public void order (BinaryHeapNode newNode){

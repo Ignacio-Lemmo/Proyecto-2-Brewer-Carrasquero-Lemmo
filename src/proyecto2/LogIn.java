@@ -6,6 +6,8 @@
 package proyecto2;
 
 import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;  
+import java.util.Date;
 
 /**
  *
@@ -18,6 +20,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        this.setDefaultCloseOperation(1);
         for (int i = 0; i < InterfazInicial.userList.getSize(); i++) {
             userBox.addItem(InterfazInicial.userList.getNodeAt(i).getName());
         }
@@ -40,13 +43,21 @@ public class LogIn extends javax.swing.JFrame {
         print = new javax.swing.JButton();
         fileBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        exit = new javax.swing.JButton();
         waitingList = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        buttonFuncionamiento = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Seleccione su nombre de Usuario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        getContentPane().add(userBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 157, -1));
 
         select.setText("Seleccionar");
         select.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -59,6 +70,7 @@ public class LogIn extends javax.swing.JFrame {
                 selectActionPerformed(evt);
             }
         });
+        getContentPane().add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 55, -1, -1));
 
         newFile.setText("Nuevo Archivo");
         newFile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,6 +78,7 @@ public class LogIn extends javax.swing.JFrame {
                 newFileMouseClicked(evt);
             }
         });
+        getContentPane().add(newFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 124, -1));
 
         deleteFile.setText("Eliminar Archivo");
         deleteFile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,6 +86,7 @@ public class LogIn extends javax.swing.JFrame {
                 deleteFileMouseClicked(evt);
             }
         });
+        getContentPane().add(deleteFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 124, -1));
 
         print.setText("Imprimir Archivo");
         print.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,8 +94,25 @@ public class LogIn extends javax.swing.JFrame {
                 printMouseClicked(evt);
             }
         });
+        getContentPane().add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
+        getContentPane().add(fileBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 202, -1));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Seleccione el Archivo que desea manipular");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 96, -1, -1));
+
+        getContentPane().add(waitingList, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 180, -1));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        buttonFuncionamiento.setText("Funcionamiento");
+        buttonFuncionamiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonFuncionamientoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(buttonFuncionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
 
         exit.setText("Regresar");
         exit.addActionListener(new java.awt.event.ActionListener() {
@@ -89,73 +120,28 @@ public class LogIn extends javax.swing.JFrame {
                 exitActionPerformed(evt);
             }
         });
+        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, -1, -1));
 
-        jLabel3.setText("Mis archivos en cola de Impresion");
+        jLabel3.setText("Mis archivos en cola de Impresión");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, 20));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(waitingList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(newFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(print)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(fileBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(userBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(select)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(exit)
-                        .addContainerGap())))
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Oficina4.jpg"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -30, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 250));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(exit)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(select))
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fileBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newFile)
-                    .addComponent(deleteFile)
-                    .addComponent(print))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(waitingList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,34 +190,66 @@ public class LogIn extends javax.swing.JFrame {
         addFile.setLocationRelativeTo(null);
         addFile.setVisible(true);
         this.dispose();
+        fileBox.removeAllItems();
+        waitingList.removeAllItems();
+        
     }//GEN-LAST:event_newFileMouseClicked
 
     private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
-        String title = fileBox.getSelectedItem().toString();
-        String name = userBox.getSelectedItem().toString();
-        int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
-        if (priority == 0){
-            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
-            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-            BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize()), (InterfazInicial.impresionList.getSize()));
-            InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
-            JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
-        }    
-        else if (priority == 1){
-            InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
-            BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), (InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize()), (InterfazInicial.impresionList.getSize()));
-            InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
-            JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+        try{
+            float hora = java.time.LocalTime.now().getHour();
+            float minuto = java.time.LocalTime.now().getMinute();
+            float segundo = java.time.LocalTime.now().getSecond();
+            float hms = (hora+minuto/60+segundo/3600); //Almacena la hora actual del momento en el que se envió a imprimir un documento.
+            //System.out.println(hora+minuto/60+segundo/3600);
+            String title = fileBox.getSelectedItem().toString();
+            String name = userBox.getSelectedItem().toString();
+            int paginas = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getSize();
+            int prioridad = InterfazInicial.userList.getNode(name).getFilesList().getNode(title).getPriorityInt();
+            int priority = JOptionPane.showConfirmDialog(null, "¿Es prioritaria la impresion de este archivo?");
+            if (priority == 0){
+                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setUrgency();
+                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+                //Llenado de HashTable
+                InterfazInicial.hashTable.insertar(hms+(paginas*prioridad), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
+                //--------------------
+                BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*prioridad), (InterfazInicial.impresionList.getSize()));
+                InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
+                JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+            }    
+            else if (priority == 1){
+                InterfazInicial.userList.getNode(name).getFilesList().getNode(title).setWaiting();
+                //Llenado de HashTable
+                InterfazInicial.hashTable.insertar(hms+(paginas*4), InterfazInicial.userList.getNode(name), InterfazInicial.userList.getNode(name).getFilesList().getNode(title));
+                //---------------------
+                BinaryHeapNode newNode = new BinaryHeapNode((InterfazInicial.userList.getNode(name).getFilesList().getNode(title)), hms+(paginas*4), (InterfazInicial.impresionList.getSize()));
+                InterfazInicial.impresionList.addNode(InterfazInicial.impresionList.getRoot(), newNode);
+                JOptionPane.showMessageDialog(null, "Se ha agregado exitosamente el archivo a la cola de impresion.");
+            }
+            else if (priority == 2){
+                JOptionPane.showMessageDialog(null, "Se cancelado la operacion.");
+            }
+            this.dispose();
+            fileBox.removeAllItems();
+            waitingList.removeAllItems();
+            this.setVisible(true);
+            this.setLocationRelativeTo(null);
         }
-        else if (priority == 2){
-            JOptionPane.showMessageDialog(null, "Se cancelado la operacion.");
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error: Asegurese de haber seleccionado un archivo antes de imprimirlo.");
         }
-        this.dispose();
     }//GEN-LAST:event_printMouseClicked
 
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
 
     }//GEN-LAST:event_selectActionPerformed
+
+    private void buttonFuncionamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonFuncionamientoMouseClicked
+        // TODO add your handling code here:
+        FuncLogIn fli = new FuncLogIn();
+        fli.setVisible(true);
+        fli.setLocationRelativeTo(null);
+    }//GEN-LAST:event_buttonFuncionamientoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -269,12 +287,16 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonFuncionamiento;
     private javax.swing.JButton deleteFile;
     private javax.swing.JButton exit;
     private javax.swing.JComboBox<String> fileBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton newFile;
     private javax.swing.JButton print;
     private javax.swing.JToggleButton select;

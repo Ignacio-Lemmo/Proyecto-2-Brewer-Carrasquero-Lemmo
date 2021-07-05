@@ -76,6 +76,11 @@ public class FileNode {
         this.waiting = true;
     }
     
+    //Establecer que esta en cola.
+    public void setWaiting2(){
+        this.waiting = false;
+    }
+    
     //Recoger urgencia.
     public boolean getUrgency(){
         return urgent;
